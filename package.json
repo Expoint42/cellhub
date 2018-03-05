@@ -1,0 +1,36 @@
+{
+  "name": "cellhub",
+  "version": "1.0.0",
+  "description": "Business management platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js --exec babel-node -e js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Expoint42/cellhub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Expoint42/cellhub/issues"
+  },
+  "homepage": "https://github.com/Expoint42/cellhub#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "colors": "^1.1.2",
+    "compression": "^1.7.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "js-yaml": "^3.10.0",
+    "mongoose": "^5.0.8",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.17.1"
+  }
+}

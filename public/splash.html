@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body{
+            background: #0095ab;
+            text-align: center;
+        }
+        #banner {
+            height: 50vh;
+        }
+        #welcome{
+            padding-top: 7rem;
+            color: white;
+            font-size: 2.3rem;
+            letter-spacing: 0.2rem;
+        }
+        #next {
+            height: 25vh;
+        }
+        #btn{
+            border: 0px;
+            display: block;
+            border-radius: 50%;
+            margin: 0px auto;
+            height: 6em;
+            width: 6em;
+            background-color: #ecff16 !important;
+            color: #0095ab;
+            font-size: 1.2rem;
+            -webkit-appearance: none;/*chrome 与safari*/
+            -moz-appearance: none;/*firefox*/
+            appearance: none; /*其他浏览器*/
+            letter-spacing: 0.2rem;
+        }
+        #note {
+            height: 15vh;
+            padding-top: 1.5rem;
+            color: white;
+            font-size: 0.8rem;
+            letter-spacing: 0.1rem;
+        }
+    </style>
+    <title>WiFi Portal</title>
+</head>
+<body>
+    <div id="banner"><div id="welcome">欢迎使用WiFi</div></div>
+    <div id="next" >
+        <form id="authForm" method='POST'>
+            <!-- <input type='hidden' name='tok' value='$tok'>
+            <input id="redir" type='hidden' name='redir' value='http://antilon.com.cn:1338/ad.html'> -->
+            <input id="btn" type="submit" value="立即上网">
+        </form>
+    </div>
+    <div id="note">安卓用户请使用 [ WiFi万能钥匙 ] 连接</div>
+    <script>
+        function divide(id, percentage){
+            var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            var divH = h * percentage
+            var divObj = document.getElementById(id);
+            divObj.setAttribute("style","height:"+ divH);
+            divObj.style.height= divH;
+        }
+        
+        divide("banner", 0.5)
+        divide("next", 0.25)
+        divide("note", 0.15)
+    </script>
+</body>
+</html>
