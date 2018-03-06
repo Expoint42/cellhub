@@ -3,11 +3,9 @@ const io = require('../../io')
 
 const CronJob = require('cron').CronJob
 
-let job = new CronJob("*/7 * * * * *", 
+let job = new CronJob("0 * * * * *", 
     () => {
-        /**
-         * Runs every 10s
-         */
+        /* 每分钟执行一次  */
         let snapshot = takeSnapshot()
 
         // compress
