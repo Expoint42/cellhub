@@ -11,6 +11,7 @@ const express       = require('express')
 
 import adRoute from './src/routes/adRoute'
 import wifiDogRoute from './src/routes/wifiDogRoute'
+import stateRoute from "./src/routes/stateRoute";
 
 const io        = require('./io')
 
@@ -24,6 +25,7 @@ const app = express();
 
 adRoute(app)
 wifiDogRoute(app)
+stateRoute(app)
 
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.MONGO_DB, appConfig.db.options )

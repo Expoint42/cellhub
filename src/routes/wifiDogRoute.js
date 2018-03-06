@@ -1,4 +1,4 @@
-import { ping, login, portal, message, auth, nocache } from "../controllers/wifiDogController"
+import { ping, login, portal, gw_message, auth, nocache } from "../controllers/wifiDogController"
 
 const wifiDogRoute = (app) => {
     app.route('/wifidog/ping').get(ping)
@@ -7,7 +7,7 @@ const wifiDogRoute = (app) => {
         .post(login)
 
     app.route('/wifidog/portal').get(nocache, portal)
-    app.route('/wifidog/message').get(message)
+    app.route('/wifidog/gw_message').get(gw_message)
     app.route('/wifidog/auth').get(auth)
 }
 
