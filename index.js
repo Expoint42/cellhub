@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
 })
 
 // Start server
-let port = process.env.PORT || 1337
+let port = process.env.PORT || 1339
 let server = http.createServer(app)
 
 
