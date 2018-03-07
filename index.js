@@ -12,6 +12,7 @@ const express       = require('express')
 import adRoute from './src/routes/adRoute'
 import wifiDogRoute from './src/routes/wifiDogRoute'
 import stateRoute from "./src/routes/stateRoute";
+import cellRoute from "./src/routes/cellRoute";
 
 const io        = require('./io')
 
@@ -22,10 +23,6 @@ try{
 }
 
 const app = express();
-
-adRoute(app)
-wifiDogRoute(app)
-stateRoute(app)
 
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.MONGO_DB, appConfig.db.options )
@@ -41,6 +38,13 @@ app.use(function(req, res, next){
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 })
+
+
+adRoute(app)
+wifiDogRoute(app)
+stateRoute(app)
+cellRoute(app)
+
 
 // 404 error handler
 app.use((req, res, next) => {

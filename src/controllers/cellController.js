@@ -1,7 +1,7 @@
 const fs        = require('fs')
 const path      = require('path')
-const Cell      = require('../models/cell')
-const VPN       = require('../controllers/vpn')
+const Cell      = require('../models/cellModel')
+// const VPN       = require('../controllers/vpn')
 
 /**
  * Router Initialize Handler
@@ -66,6 +66,15 @@ export const addNewCell = (req, res, next) => {
     } catch(err){ next(err) }
 }
 
+export const getCells = (req, res, next) => {
+    Cell.find( {}, (err, cells) => {
+        if(err){
+            res.send(err.message)
+        }
+        res.json(cells)
+    })
+}
+
 /**
  * 查询路由器信息
  * 
@@ -84,7 +93,7 @@ export const addNewCell = (req, res, next) => {
  * @param {*} next 
  * @returns 
  */
-export const getCells = (req, res, next) => {
+export const getCellsOld = (req, res, next) => {
 
     let search = req.body['search[value]']
 
@@ -160,7 +169,13 @@ export const getCells = (req, res, next) => {
 }
 
 export const getCellById = (req, res, next) => {
+    Cell.findById(req.params.id, (err, cell) => {
+        if(err) {
+            res.send(err)
+        }
 
+        res.json(cell)
+    })
 }
 
 /**
@@ -177,39 +192,15 @@ export const getCellById = (req, res, next) => {
  * @returns
  */
 export const updateCellById = (req, res, next) => {
+    // insert the update time to the update data.
+    req.body.updatedAt = new Date();
 
-    // const requiredProps = [
-    //     { name: '_id',      propType:'string'} ]
-    
-    try{
-        // utils.checkProps(req.body, requiredProps)
-
-        let query = { _id: req.body._id }
-
-        let newVal = Object.assign({ updatedAt: new Date() }, req.body);
-        if (newVal._id)     { delete newVal._id }
-        if (newVal.token)   { delete newVal.token }
-
-        console.log(newVal)
-
-        let options = { upsert: true }
-
-        Cell.update(query, newVal, options, function(err, result) {
-            if(err){
-                return res.status(200).send({ success:false, message: err.message}) 
-            } else {
-                return res.status(200).send({ success:true, message: 'ok' })
-            } 
-            
-            // 如果是新增数据，result 会为 null
-            // else if (result != null){
-            //     return res.status(200).send({ success: true, message: 'ok'})
-            // } else {
-            //     return res.status(200).send({ success:false, message: 'Update router failed' })
-            // }
-        })
-    } catch(err){ next(err) }
-
+    Cell.findOneAndUpdate({ _id: req.params.id}, req.body, { new: true }, (err, cell) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(cell);
+    })
 }
 
 /**
@@ -242,7 +233,9 @@ export const deleteCell = (req, res, next) => {
 }
 
 export const deleteCellById = (req, res, next) => {
-
+    console.log(req.body)
+    console.log(req.params)
+    console.log(req.query)
 }
 
 /**

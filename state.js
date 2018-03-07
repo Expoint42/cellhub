@@ -1,3 +1,5 @@
+import { addNewConnection } from './src/controllers/connectionController'
+
 let stateOfCells = new Map();
 
 /**
@@ -46,6 +48,18 @@ export const refreshStateOfClients = (client) => {
             .get(client.gw_id)  // 获取指定 cell 
             .clients            // 从 cell 中获取所有客户端
             .set(tempClient.mac, tempClient) // 将客户端信息更新
+    }
+}
+
+export const newConnection = (client) => {
+    if(client != null ) {
+        let connection = {
+            mac:    client.mac.replace(/:/g, "").toUpperCase(),
+            cell:   client.gw_id,
+            ts:     client.first_login
+        }
+    
+        addNewConnection(connection)
     }
 }
 
