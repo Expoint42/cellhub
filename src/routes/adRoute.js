@@ -1,4 +1,10 @@
-import { addNewAd, getAds, getAdById, updateAd, deleteAd } from '../controllers/adController'
+import { 
+    addNewAd, 
+    getAds, 
+    getAdById, 
+    updateAd, 
+    deleteAd 
+} from '../controllers/adController'
 
 // Advertisement
 const adRoute = (app) => {
