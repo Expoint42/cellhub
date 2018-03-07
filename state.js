@@ -15,6 +15,7 @@ export const refreshStateOfCells = (cell) => {
         theCell.load = cell.sys_load;
         theCell.sessions = cell.nf_conntrack_count;
         theCell.cpu = cell.cpu_usage;
+        theCell.online = cell.online_clients;
     } else {
         stateOfCells.set(cell.gw_id, {
             id : cell.gw_id,
@@ -23,6 +24,7 @@ export const refreshStateOfCells = (cell) => {
             load : cell.sys_load,
             sessions : cell.nf_conntrack_count,
             cpu : cell.cpu_usage,
+            online: cell.online_clients,
             clients: new Map()
         })
     }
@@ -55,8 +57,7 @@ export const newConnection = (client) => {
     if(client != null ) {
         let connection = {
             mac:    client.mac.replace(/:/g, "").toUpperCase(),
-            cell:   client.gw_id,
-            ts:     client.first_login
+            cell:   client.gw_id
         }
     
         addNewConnection(connection)
