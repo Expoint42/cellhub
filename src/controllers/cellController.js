@@ -1,7 +1,6 @@
 const fs        = require('fs')
 const path      = require('path')
 const Cell      = require('../models/cellModel')
-// const VPN       = require('../controllers/vpn')
 
 /**
  * Router Initialize Handler
@@ -67,21 +66,6 @@ export const addNewCell = (req, res, next) => {
 }
 
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- */
-export const getCells = (req, res, next) => {
-    Cell.find( {}, (err, cells) => {
-        if(err){
-            res.send(err.message)
-        }
-        res.json(cells)
-    })
-}
-
-/**
  * 查询路由器信息
  * 
  * HTTP Header: Cookie: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
@@ -99,7 +83,7 @@ export const getCells = (req, res, next) => {
  * @param {*} next 
  * @returns 
  */
-export const getCellsByDataTable = (req, res, next) => {
+export const getCells = (req, res, next) => {
 
     try {
 
@@ -174,10 +158,10 @@ export const getCellsByDataTable = (req, res, next) => {
 export const getCellById = (req, res, next) => {
     Cell.findById(req.params.id, (err, cell) => {
         if(err) {
-            res.send(err)
+            res.status(400).send(err)
+        } else {
+            res.status(200).json(cell)
         }
-
-        res.json(cell)
     })
 }
 
@@ -203,6 +187,27 @@ export const updateCellById = (req, res, next) => {
             res.status(400).send(err);
         }
         res.status(200).json(cell);
+    })
+}
+
+/**
+ * This is a special method only for tinc host-up & host-down hook script
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+export const updateCellStatus = (req, res, next) => {
+
+    Cell.findOneAndUpdate(
+        { _id: req.body._id}, 
+        { status: req.body.status === "1" ? true : false }, 
+        { new: true }, 
+        (err, cell) => {
+            if (err) {
+                res.status(400).send(err);
+            } else {
+                res.status(200).json(cell);
+            }
     })
 }
 
@@ -251,9 +256,9 @@ export const count =(req, res, next) => {
     Cell.count({}, (err, count) => {
         if(err) {
             console.error(err)
-            return res.status(200).send({ success:false, message: err.message })
+            return res.status(400).send(err)
         } else {
-            return res.status(200).json({ success:true,  message:'ok', count: count})
+            return res.status(200).json({ count: count})
         }
     })
 }

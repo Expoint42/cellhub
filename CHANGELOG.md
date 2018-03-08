@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 180308002
+
+### Updated
+
+- cellController.js
+  - 移除了 `getCells` 方法，并将 `getCellsByDataTable` 方法改为 `getCells` 方法
+  - 为 `getCellById` 方法添加了 http status code
+  - 新增了 `updateCellStatus` 代码转为 tinc 的 `host-up` & `host-down` 脚本服务从而更新哪些路由器在线哪些不在线。
+  - 为 `count` 方法添加了 http status code
+
+- cellModel.js
+  - 为 `mac` 字段添加了 `uppercase:true` 属性
+  - 新增了 `status` 字段
+
+- connectionModel.js
+  - 为 `mac` 字段添加了 `uppercase:true` 属性
+  - 为 `cell` 字段添加了 `uppercase:true` 属性
+
+- cellRoute.js
+  - 移除了导入的`getCellsByDataTable` 方法和 `/celldemo` 路由
+  - 新增导入 `updateCellStatus` 方法和 `/cellstatus` 路由
+
 ## 180308001
 
 ### Added

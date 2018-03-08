@@ -5,7 +5,7 @@ const mongoose  = require('mongoose')
     , Schema    = mongoose.Schema
 
 let cellSchema = new Schema({
-    mac:        { type:String,  unique: true, required: "You need enter a MAC Address" },          // router mac address
+    mac:        { type:String,  unique: true, uppercase: true, required: "You need enter a MAC Address" },          // router mac address
     netname:    { type:String,  required: "You need enter a Netname" },        //
     address:    { type:String,  unique:true, required: "You need enter an IP Address" },   // tinc ip address
     subnet:     { type:String,  required: "You need enter a Subnet" },
@@ -23,6 +23,7 @@ let cellSchema = new Schema({
     location:   { type:String,  default: "Not set" },    // 部署位置
     scene:      { type:String },                         // 部署场景：公共区域、出租屋、商铺
     note:       { type:String,  default: "Not Set" },
+    status:     { type:Boolean, default: false },
     createdAt:  { type:Number,  default: new Date().getTime(),
     updatedAt:  { type:Number,  default: new Date().getTime()}
     }

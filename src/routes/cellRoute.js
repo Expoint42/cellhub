@@ -1,9 +1,9 @@
 import { 
     addNewCell, 
     getCells,
-    getCellById, 
-    getCellsByDataTable,
-    updateCellById, 
+    getCellById,
+    updateCellById,
+    updateCellStatus,
     deleteCell,
     deleteCellById
 } from '../controllers/cellController'
@@ -21,8 +21,9 @@ const cellRoute = (app) => {
     .put ( updateCellById  )
     // .delete ( deleteCellById )
 
-    app.route('/celldemo')
-    .get( getCellsByDataTable )
+    // tinc host-up & host-down event handler
+    // wget can only use http GET/POST method, which is not universal
+    app.post('/cellstatus', updateCellStatus)
 }
 
 export default cellRoute;
