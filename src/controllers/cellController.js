@@ -66,6 +66,12 @@ export const addNewCell = (req, res, next) => {
     } catch(err){ next(err) }
 }
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 export const getCells = (req, res, next) => {
     Cell.find( {}, (err, cells) => {
         if(err){
@@ -93,19 +99,16 @@ export const getCells = (req, res, next) => {
  * @param {*} next 
  * @returns 
  */
-export const getCellsOld = (req, res, next) => {
+export const getCellsByDataTable = (req, res, next) => {
 
-    let search = req.body['search[value]']
+    try {
 
-    // const requiredProps = [
-    //     { name: 'draw',      propType:'number'},
-    //     { name: 'start',     propType:'number'},
-    //     { name: 'length',    propType:'number'} ]
+        let search = req.query['search[value]']
+        let draw = parseInt(req.query.draw);
+        let start = parseInt(req.query['start']);
+        let length = parseInt(req.query['length']);
 
-    try{
-        // utils.checkProps (req.body, requiredProps)
-
-        let query   = {}            
+        let query   = {}
         let recordsTotalCount = 0
         let recordsFilteredCount = 0
 
@@ -122,7 +125,7 @@ export const getCellsOld = (req, res, next) => {
 
         // Do filter work.
         let filterCountPromise = totalCountPromise.then(()=>{
-    
+
             // if client provide the name type
             if (search) {
                 console.log('search....', search)
@@ -136,7 +139,7 @@ export const getCellsOld = (req, res, next) => {
                 } else {                                
                     recordsFilteredCount = count
                     // don't delete.
-                    // don't know why, must print then can get it's value.
+                    // TODO: don't know why, must print then can get it's value.
                     console.log(recordsFilteredCount)
                 }
             })
@@ -144,30 +147,30 @@ export const getCellsOld = (req, res, next) => {
 
         // Do the query work.
         let queryPromise = filterCountPromise.then(()=>{
-
-            let options = { 
-                skip: parseInt(req.body.start), 
-                limit: parseInt(req.body.length), 
-                sort: { createdAt: -1 } }
-            
+            let options = { skip: start, limit: length, sort: { createdAt: -1 } }  
             Cell.find( query, null, options, (err, results) => {
                 if(err){
                     console.error(err)
                     return res.status(200).send({ success:false,  message: err.message })
                 } else {
-                    return res.status(200).send({ success:true,   
-                        message: "ok",
-                        draw: parseInt(req.body.draw), 
+                    return res.status(200).send({
+                        draw: draw, 
                         recordsTotal: recordsTotalCount,
                         recordsFiltered: recordsFilteredCount, 
                         data: results })
                 }
             })
         })
-        
+
     } catch(err){ next(err) }
 }
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 export const getCellById = (req, res, next) => {
     Cell.findById(req.params.id, (err, cell) => {
         if(err) {
@@ -193,13 +196,13 @@ export const getCellById = (req, res, next) => {
  */
 export const updateCellById = (req, res, next) => {
     // insert the update time to the update data.
-    req.body.updatedAt = new Date();
+    req.body.updatedAt = new Date().getTime()
 
     Cell.findOneAndUpdate({ _id: req.params.id}, req.body, { new: true }, (err, cell) => {
         if (err) {
-            res.send(err);
+            res.status(400).send(err);
         }
-        res.json(cell);
+        res.status(200).json(cell);
     })
 }
 

@@ -146,14 +146,7 @@ export const gw_message = (req, res) =>{
  */
 export const auth = (req, res) => {
     if (req.query != null && req.query.token === "welcome_to_wifi") {
-
         refreshStateOfClients(req.query)
-
-        // if stage == login that means the first time user connect to the cell, 
-        // we need to put that on record.
-        if (req.query.stage === "login") {
-            newConnection(req.query)
-        }
         res.send('Auth: 1')
     } else {
         res.send('Auth: 0')

@@ -1,6 +1,7 @@
 import { addNewConnection } from './src/controllers/connectionController'
 
 let stateOfCells = new Map();
+let dailyConnectNum = 0;
 
 /**
  * 
@@ -35,6 +36,23 @@ export const refreshStateOfCells = (cell) => {
  * @param {*} client 
  */
 export const refreshStateOfClients = (client) => {
+
+    if(client == null) return;
+
+    // if stage == login that means the first time user connect to the cell, 
+    // we need to put that on record.
+    if (client.stage === "login") {
+
+        let connection = {
+            name:   client.name,
+            mac:    client.mac.replace(/:/g, "").toUpperCase(),
+            cell:   client.gw_id
+        }
+    
+        dailyConnectNum += 1;
+        addNewConnection(connection)
+    }
+
     let tempClient = {
         name : client.name,
         mac : client.mac.replace(/:/g, "").toUpperCase(),
@@ -50,17 +68,6 @@ export const refreshStateOfClients = (client) => {
             .get(client.gw_id)  // 获取指定 cell 
             .clients            // 从 cell 中获取所有客户端
             .set(tempClient.mac, tempClient) // 将客户端信息更新
-    }
-}
-
-export const newConnection = (client) => {
-    if(client != null ) {
-        let connection = {
-            mac:    client.mac.replace(/:/g, "").toUpperCase(),
-            cell:   client.gw_id
-        }
-    
-        addNewConnection(connection)
     }
 }
 
@@ -116,7 +123,8 @@ export const takeSnapshot = () => {
         ts: new Date().getTime(),
         state: [],
         cellNum: stateOfCells.size,
-        clientNum: 0 
+        clientNum: 0,
+        connectNum: dailyConnectNum
     }
 
     stateOfCellsClone.forEach( (value, key, map) => {

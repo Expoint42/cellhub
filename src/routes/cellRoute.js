@@ -1,7 +1,8 @@
 import { 
     addNewCell, 
-    getCells, 
+    getCells,
     getCellById, 
+    getCellsByDataTable,
     updateCellById, 
     deleteCell,
     deleteCellById
@@ -12,12 +13,16 @@ const cellRoute = (app) => {
     app.route('/cell')
     .get ( getCells )
     .post( addNewCell )
-    .delete( deleteCell)
+    // .delete( deleteCell)
 
     app.route('/cell/:id')
+    .options ( (req, res) => { res.send('ok')})
     .get ( getCellById )
     .put ( updateCellById  )
-    .delete ( deleteCellById )
+    // .delete ( deleteCellById )
+
+    app.route('/celldemo')
+    .get( getCellsByDataTable )
 }
 
 export default cellRoute;

@@ -21,5 +21,5 @@ let job = new CronJob("0 * * * * *",
 )
 
 export const getStateOfCells = (req, res) => {
-    res.json(takeSnapshot())
+    res.status(200).json(takeSnapshot())
 }
