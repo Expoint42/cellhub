@@ -44,7 +44,6 @@ export const refreshStateOfClients = (client) => {
     if (client.stage === "login") {
 
         let connection = {
-            name:   client.name,
             mac:    client.mac.replace(/:/g, "").toUpperCase(),
             cell:   client.gw_id
         }

@@ -1,6 +1,58 @@
 # CHANGELOG
 
+## 180312001
+
+### Added
+
+- 添加了 VPN 相关代码：
+  - vpnRoute.js
+  - vpnController.js
+  - vpnModel.js
+
+### Updated
+
+- cellModel.js
+  - 添加了 tPubKey 字段
+
+- connectionModel.js
+  - 移除了 name 字段（由于首次验证时，无法获取用户设备名称）
+
+- state.js
+  - 对应移除了 connection 对象的 name 字段。
+
 ## 180308002
+
+### Added
+
+在运行 tinc 的服务器上的 `/etc/tinc/<netname>` 添加了如下的脚本：
+
+- host-up
+
+```bash
+#!/bin/bash
+
+CELLHUB="ianki.cn:1338"
+
+mkdir -p /tmp/log
+
+echo "${NODE} @${REMOTEADDRESS}:${REMOTEPORT} is online" >> /tmp/log/tinc-host.log
+res_msg=$( wget -qO- --post-data="_id=${NODE}&status=1" http://${CELLHUB}/cellstatus )
+echo "Server Response: ${res_msg}" >> /tmp/log/tinc-host.log
+```
+
+- host-down
+
+```bash
+#!/bin/bash
+
+CELLHUB="ianki.cn:1338"
+
+mkdir -p /tmp/log
+
+echo "${NODE} @${REMOTEADDRESS}:${REMOTEPORT} is offline" >> /tmp/log/tinc-host.log
+res_msg=$( wget -qO- --post-data="_id=${NODE}&status=0" http://${CELLHUB}/cellstatus )
+echo "Server Response: ${res_msg}" >> /tmp/log/tinc-host.log
+```
 
 ### Updated
 
