@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 180312002
+
+### Updated
+
+- vpnModel.js
+  - 删除了默认为 `1` 的 `ip_from` 字段
+  - 删除了默认为 `254` 的 `ip_to` 字段
+  - 将原 `in_use` 字段该为 `inUse`，并修改为 `{ type:[{ type: Number, min: 1, max: 254 }], default: [1] }`
+
+- cellModel.js
+  - 将原 `address` 字段改为 `tIP` 表示 tinc IP
+  - 将原 `adsl_id` 字段改为 `adslId`
+  - 将原 `adsl_key` 字段改为 `adslKey`
+  - 将原 `wifikey` 字段改为 `wifiKey`
+
 ## 180312001
 
 ### Added

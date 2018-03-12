@@ -9,11 +9,9 @@ let vpnSchema = new Schema({
     gateway:    { type:String, unique: true, required: "gate way can't be null" },          // the master IP
     pubIp:      { type:String, required: "Public IP address can't be null" },
     subnet:     { type:String, required: "Subnet address can't be null" },    
-    ip_from:    { type:Number, default: 1   },          // 用于分配的 IP 范围
-    ip_to  :    { type:Number, default: 254 },
-    in_use:     { type:[Number], default: [1] },        // 已经分配的 IP
+    inUse:      { type:[{ type: Number, min: 1, max: 254 }], default: [1] },        // 已经分配的 IP
     port:       { type:Number, unique:true },            // vpn port
-    tpubkey:    { type:String }     // tinc 主机配置
+    tPubkey:    { type:String }     // host 的 public key
 });
 
 module.exports = mongoose.model('VPN', vpnSchema);
