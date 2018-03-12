@@ -8,7 +8,7 @@ let cellSchema = new Schema({
     hostname:   { type:String,  unique: true, required: "Hostname can't be null" },          // 主机名
     mac:        { type:String,  unique: true, uppercase: true, required: "MAC Address can't be null" },          // router mac address
     netname:    { type:String,  required: "Netname can't be null" },        // I will merge tinc master, 也就是当前路由器连接的 tinc 主机
-    tIP:        { type:String,  unique:true, required: "IP Address can't be null" },   // tinc ip address
+    tIp:        { type:String,  unique:true, required: "IP Address can't be null" },   // tinc ip address
     subnet:     { type:String,  required: "Subnet can't be null" },
     password:   { type:String },    // 主机密码
     model:      { type:String },    // 型号
