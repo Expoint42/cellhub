@@ -2,17 +2,17 @@
   "name": "cellhub",
   "version": "1.0.0",
   "description": "Business management platform",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js --exec babel-node -e js"
+    "test": "mocha --timeout 10000",
+    "start": "SET NODE_ENV=development && nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Expoint42/cellhub.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "hexcola",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Expoint42/cellhub/issues"
@@ -25,13 +25,15 @@
     "cookie-parser": "^1.4.3",
     "cron": "^1.3.0",
     "express": "^4.16.2",
-    "js-yaml": "^3.10.0",
+    "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.8",
+    "morgan": "^1.9.0",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^5.0.4",
     "nodemon": "^1.17.1"
   }
 }

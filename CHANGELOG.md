@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 180316001
+
+- Removed babel plugins and related code style
+- reorganize project and add Test features
+
 ## 180312002
 
 ### Updated

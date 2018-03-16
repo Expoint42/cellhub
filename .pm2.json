@@ -1,0 +1,8 @@
+{
+    "apps" : [{
+        "name"      : "cellhub",
+        "script"    : "./index.js",
+        "watch"     : true,
+        "exec_mode" : "fork"
+    }]
+}
