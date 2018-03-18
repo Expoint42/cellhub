@@ -1,3 +1,8 @@
+/* global describe it beforeEach */
+
+// JavaScript Standard Style does not recognize Mocha
+// https://stackoverflow.com/a/30345170/5176750
+
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test'
 
@@ -7,8 +12,7 @@ let Connection = require('../app/models/connectionModel')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let server = require('../server')
-let should = chai.should()
-
+chai.should()
 chai.use(chaiHttp)
 
 //Our parent block
@@ -16,9 +20,12 @@ describe('WifiDog', () => {
 
     //Before each test we empty the database
     beforeEach((done) => {
-        Connection.remove({}, (err) => {  
-            // console.error(err)
-            done() 
+        Connection.remove({}, (err) => {
+            if(err) {
+                console.error(err)
+            } else {
+                done()
+            }
         })
     })
 
@@ -99,7 +106,7 @@ describe('WifiDog', () => {
     /*
     * Test the /POST VPN
     */
-   describe('GET /wifidog/portal', () => {
+    describe('GET /wifidog/portal', () => {
         it('it should redirect to advertisement', (done) => {
             chai.request(server)
                 .get('/wifidog/portal')
@@ -110,9 +117,5 @@ describe('WifiDog', () => {
                     done()
                 })
         })
-    })
-
-    after( (done) => {
-        server.close(done)
     })
 })

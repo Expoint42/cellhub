@@ -1,25 +1,25 @@
 const adController  = require('../controllers/adController')
     , router        = require('express').Router()
+    , { USER_LEVEL, ACL }    = require('../acl')
 
 router.route('/')
     // Get all advertisements
-    .get ( adController.getAds   )
+    .get ( ACL(USER_LEVEL.Guest), adController.getAds   )
 
     // Create new advertisement
-    .post( adController.addNewAd )
+    .post( ACL(USER_LEVEL.Admin), adController.addNewAd )
 
 // app.route('/ad/count')
 //     .get()
 
 router.route('/:id')    
     // Get advertisement by Id
-    .get ( adController.getAdById )
+    .get ( ACL(USER_LEVEL.Guest), adController.getAdById )
 
     // Update advertisement by Id
-    .put ( adController.updateAdById )
+    .put ( ACL(USER_LEVEL.Admin), adController.updateAdById )
 
     // Delete advertisement by Id
-    .delete ( adController.deleteAdById )
-
+    .delete (ACL(USER_LEVEL.Admin), adController.deleteAdById )
 
 module.exports = router

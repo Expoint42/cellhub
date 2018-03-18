@@ -7,7 +7,9 @@ const mongoose  = require('mongoose')
 let adSchema = new Schema({
     link:       { type:String,  unique: true, required: 'Ad link can not be null' },          // router mac address
     views:      { type:Number,  default: 0 },        //
-    note:       { type:String },   // tinc ip address
+    key:        { type:String },    // 广告平台分配的唯一标示码
+    secret:     { type:String },    //用来进行MD5签名的字符串
+    note:       { type:String },    // tinc ip address
     createdAt:  { type:Number,    default: new Date().getTime() }
 })
 

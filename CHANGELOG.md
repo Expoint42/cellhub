@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 18031801
+
+- package.json
+  - 将原来 Windows 下设置环境变量和调用 nodemon 启动服务器的方式改为 Unix 下的方式
+
+- server.js
+  - 添加了 acl 模块用于用户验证和用户授权
+  - 统一了响应格式为 `Status Code` + `JSON` 对象，`JSON` 对象只要不是 200 或者 重定向，都有 `message` 字段用于提示错误原因。
+
+- acl.js
+  - 重新整理开发了 Authz 和 AuthN
+
+- adModel.js
+  - 为 Ad Schema 添加了 key 和 secret 字段
+
+- 为以下的 Route 添加了 ACL Middleware
+  - adRoute.js
+  - cellRoute.js
+  - userRoute.js
+  - vpnRoute.js
+  - wifiRoute.js
+
+- 在添加了 ACL 之后，更新了以下的测试代码
+  - adTest.js
+  - cellTest.js
+  - userTest.js
+  - vpnTest.js
+  - wifiTest.js
+
 ## 180316001
 
 - Removed babel plugins and related code style

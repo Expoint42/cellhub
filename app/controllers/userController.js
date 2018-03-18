@@ -1,6 +1,5 @@
 const User = require('../models/userModel')
-    , jwt  = require('jsonwebtoken') // used to create, sign, and verify tokens
-    , config = require('../../config')(process.env.NODE_ENV)
+
 /**
  * 添加用户
  * 必备字段：
@@ -23,53 +22,11 @@ const addNewUser = (req, res, next) => {
 }
 
 /**
- * 登录
- * Request data example:
  * 
- * HTTP body  : {"username":"sder","passwd":"sdfsdkwoer"}
- * Return： 成功返回个人信息json字符串，并设置cookie。失败返回错误信息
-    Eg: 
-    {   "id":"dwerw34edf5", "name":"sder","password":"",
-        "usertype":1,"phone":"13523087907",
-        "email":"huanshikeji@163.com","creator":"admin",
-        "createdAt":"2017-08-01 18:51","updatedAt":" 2017-08-01 18:51"}
-
-*/
-const SignIn = (req, res, next) => {
-
-    try {
-        // ok.
-        let name     = req.body.name
-        let password = req.body.password
-    
-        User.findOne({ name: name }, function(err, user){
-            if (err) {
-                res.status(200).send({ message: err.message}) }
-    
-            if(!user) {
-                if (!user) { res.status(200).send({ message: 'user not found' })}
-            }
-    
-            if(!user.validPassword(password)){
-                res.status(200).send({ success:false,  message: 'password incorrect' })
-            } else {
-                // create a token
-                let token = jwt.sign(user, config.SECRET_KEY, {
-                    expiresIn : 60*60*24 // expires in 24 hours
-                })
-    
-                // return the information including token as JSON
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token
-                })
-            }
-        })
-    } catch (err) { next(err) }
-}
-
-
+ * @param { Express.Request } req 
+ * @param { Express.Response } res 
+ * @param { function } next 
+ */
 const getUserById = (req, res, next) => {
     try {
         User.findById(req.params.id, (err, user) => {
@@ -279,6 +236,7 @@ module.exports =  {
     getUserById, 
     getUsers, 
     updateUserById, 
-    deleteUserById, 
+    deleteUserById,
+    deleteUsers,
     countUsers 
 }

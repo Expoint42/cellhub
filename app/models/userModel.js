@@ -42,6 +42,7 @@ let userSchema = new Schema({
  * 
  * NOTE: Don't change the function(next) to arrow function, it will lose 'this'
  * object
+ * TO-DO: 除了配置管理员外，禁止用户 usertype 值为 1
  */
 userSchema.pre('save', function(next) {
     this.password = hash(this.password)
@@ -62,6 +63,29 @@ userSchema.pre('findOneAndUpdate', function( next ) {
     this._update.password = new Date().getTime()
     next()
 })
+
+/**
+ * TO-DO 不允许删除管理员级别的用户
+ */
+// userSchema.pre('remove', function(next) {
+
+//     console.log('Mouhaha')
+//     console.log(this)
+
+//     if( this.usertype != null || this.usertype != 1 ){
+//         next()
+//     } else {
+//         throw new Error('can not delete admin group users')
+//     }
+// })
+
+// userSchema.post('remove', function(doc) {
+//     console.log('what happend')
+// })
+
+userSchema.statics.hashPassword = (password) => {
+    return hash(password)
+}
 
 /**
 * Provide a `User.passwordCompare(password, hashed_pwd)` method.

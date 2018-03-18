@@ -7,17 +7,18 @@ const {
         countVPNs
     }               = require('../controllers/vpnController')
     , router        = require('express').Router()
+    , { USER_LEVEL, ACL }    = require('../acl')
 
 router.route('/')
-    .get ( getVPNs )
-    .post( addNewVPN )
+    .get ( ACL(USER_LEVEL.Guest), getVPNs )
+    .post( ACL(USER_LEVEL.Admin), addNewVPN )
 
 router.route('/count')
-    .get( countVPNs )
+    .get ( ACL(USER_LEVEL.Admin), countVPNs )
 
 router.route('/:id')
-    .get ( getVPNById )
-    .put ( updateVPNById )
-    .delete ( deleteVPNById )
+    .get ( ACL(USER_LEVEL.Guest), getVPNById )
+    .put ( ACL(USER_LEVEL.Admin), updateVPNById )
+    .delete ( ACL(USER_LEVEL.Admin), deleteVPNById )
 
 module.exports = router

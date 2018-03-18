@@ -7,7 +7,7 @@ const {
         state 
     }           = require('../controllers/wifiController')
     , router    = require('express').Router()
-
+    , { USER_LEVEL, ACL }    = require('../acl')
 
 router.route('/ping')
     .get(ping)
@@ -26,6 +26,6 @@ router.route('/auth')
     .get(auth)
 
 router.route('/state')
-    .get(state)
+    .get( ACL(USER_LEVEL.Admin), state)
 
 module.exports = router

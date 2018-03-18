@@ -44,7 +44,7 @@ const getVPNs = (req, res, next ) => {
         // Match the [DataTable](https://datatables.net/manual/server-side) query pattern, need get the amount of records.
         let totalCountPromise = VPN.count({}, (err, count) => {
             if(err) {
-                res.status(200).send({ message: err.message })
+                res.status(400).send({ message: err.message })
             } else {
                 recordsTotalCount = count
             }
@@ -61,7 +61,7 @@ const getVPNs = (req, res, next ) => {
 
             VPN.count(query, (err, count) => {
                 if(err) {
-                    res.status(200).send({ message: err.message })
+                    res.status(400).send({ message: err.message })
                 } else {                                
                     recordsFilteredCount = count
                     // don't delete.
@@ -76,7 +76,7 @@ const getVPNs = (req, res, next ) => {
             let options = { skip: start, limit: length, sort: { createdAt: -1 } }  
             VPN.find( query, null, options, (err, results) => {
                 if(err){
-                    res.status(200).send({ message: err.message })
+                    res.status(400).send({ message: err.message })
                 } else {
                     res.status(200).send({
                         draw: draw, 

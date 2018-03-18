@@ -1,26 +1,26 @@
 const userController    = require('../controllers/userController')
     , router            = require('express').Router()
-
+    , { USER_LEVEL, ACL }    = require('../acl')
 
 router.route('/')
     // Get all users
-    .get(userController.getUsers)
+    .get( ACL(USER_LEVEL.Guest), userController.getUsers)
 
     // Create new users
-    .post(userController.addNewUser)
+    .post( ACL(USER_LEVEL.Admin), userController.addNewUser)
 
 router.route('/count')
-    .get(userController.countUsers)
+    .get( ACL(USER_LEVEL.Admin), userController.countUsers)
 
 
 router.route('/:id')
     // Get User infomation by id
-    .get(userController.getUserById)
+    .get( ACL(USER_LEVEL.Guest), userController.getUserById)
 
     // Update User information by user id
-    .put(userController.updateUserById)
+    .put( ACL(USER_LEVEL.Admin), userController.updateUserById)
 
     // Delete User information by user id
-    .delete(userController.deleteUserById) 
+    .delete( ACL(USER_LEVEL.Admin), userController.deleteUserById) 
 
 module.exports = router

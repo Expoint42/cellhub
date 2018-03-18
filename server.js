@@ -10,6 +10,7 @@ const express       = require('express')
 
 const io            = require('./io')
     , config        = require('./config')(process.env.NODE_ENV)
+    , { init, authenticate }    =require('./app/acl')
 
 const app = express()
 
@@ -39,24 +40,29 @@ app.use(function(req, res, next){
     next()
 })
 
-// app.use(acl);
+// ACL to determine if user allow to access the specific resource
+// app.use(require('./app/acl').ACL)
 
+// routes.
+app.use('/init',    init)
+app.use('/auth',    authenticate)
 app.use('/ad',      require('./app/routes/adRoute'))
 app.use('/cell',    require('./app/routes/cellRoute'))
 app.use('/user',    require('./app/routes/userRoute'))
 app.use('/vpn',     require('./app/routes/vpnRoute'))
 app.use('/wifidog', require('./app/routes/wifiRoute'))
 
+// console.log(app._router)
 
 // 404 error handler
 app.use((req, res) => {
-    res.status(404).send('resource not found')
+    res.status(404).send({ message:'resource not found' })
 })
 
 // 500 error handler
 app.use((err, req, res) => {
     console.error(err)
-    return res.status(500).send(err.message)
+    return res.status(500).send({ message: err.message })
 })
 
 
