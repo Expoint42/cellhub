@@ -11,7 +11,7 @@ const init = (req, res) => {
             username:   'admin',
             password:   'admin',
             usertype:   1,
-            phone   :   '18838152065',
+            phone   :   '15617816250',
         })
 
         newUser.save((err, user) => {

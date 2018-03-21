@@ -1,0 +1,17 @@
+version: "2"
+services:
+  billion:
+    container_name: cellhub
+    restart: always
+    build: .
+    ports:
+      - "1338:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:3.6.3
+    volumes:
+      - ./data:/data
+    ports:
+      - "27017:27017"

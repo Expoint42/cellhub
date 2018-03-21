@@ -60,3 +60,5 @@ typings/
 yarn.lock
 playground.js
 backupcode.js
+
+data/

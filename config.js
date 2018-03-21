@@ -1,6 +1,5 @@
 class Config {
-    constructor() {        
-        this.PORT = 1338
+    constructor() {
         this.SECRET_KEY = process.env.SECRET_KEY || 'hard to guess'
         this.HASH_ALGORITHM = 'sha1'
         this.SALT_ROUNDS = 10
@@ -26,7 +25,7 @@ class TestConfig extends Config {
 class ProductionConfig extends Config {
     constructor() {
         super()
-        this.DB_URI = process.env.MONGO_DB
+        this.DB_URI = process.env.MONGO_DB || 'mongodb://devop:6A2u3cBVksebvpeGg95fPkhMBNaTDC8k@127.0.0.1:27017/cellhub'
     }
 }
 

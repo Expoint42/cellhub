@@ -47,7 +47,7 @@ const getCells = (req, res, next) => {
         let totalCountPromise = Cell.count({}, (err, count) => {
             if(err) {
                 console.error(err)
-                return res.status(200).send({ success:false,  message: err.message })
+                return res.status(400).send({ message: err.message })
             } else {
                 recordsTotalCount = count
             }
@@ -65,7 +65,7 @@ const getCells = (req, res, next) => {
             Cell.count(query, (err, count) => {
                 if(err) {
                     console.error(err)
-                    return res.status(200).send({ success:false,  message: err.message })
+                    return res.status(400).send({ message: err.message })
                 } else {                                
                     recordsFilteredCount = count
                     // don't delete.
@@ -81,7 +81,7 @@ const getCells = (req, res, next) => {
             Cell.find( query, null, options, (err, results) => {
                 if(err){
                     console.error(err)
-                    return res.status(200).send({ success:false,  message: err.message })
+                    return res.status(400).send({ message: err.message })
                 } else {
                     return res.status(200).send({
                         draw: draw, 

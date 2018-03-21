@@ -14,9 +14,6 @@ const io            = require('./io')
 
 const app = express()
 
-// Start server
-let port = process.env.PORT || 1338
-
 mongoose.Promise = global.Promise
 mongoose.connect(config.DB_URI, config.DB_OPTIONS )
     .then(console.log('db connected.'), (err) => console.error(err))
@@ -74,6 +71,8 @@ io.attach(server, {
     pingTimeout: 5000,
     cookie: false
 })
+
+let port = 3000
 
 server.listen(port, '0.0.0.0', (err)=>{
     if(err){

@@ -32,6 +32,7 @@ let cellSchema = new Schema({
     tPubKey:    { type:String },    // tinc public key
     note:       { type:String },
     status:     { type:Boolean, default: false },
+    owner:      { type:Schema.Types.ObjectId },   // 这是谁的路由器（部署在谁那里）
     createdAt:  { type:Number,  default: new Date().getTime() },
     updatedAt:  { type:Number,  default: new Date().getTime() }
 })

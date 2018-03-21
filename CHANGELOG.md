@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 18032101
+
+- 添加了 Docker 部署方案
+- config.js
+  - Docker 将使用默认的 3000 端口，对外监听端口，将由 `docker-compose.yml` 文件来处理
+
+- cellModel.js 添加了 Owner 字段，方便后期查看不同商户名下的路由器和收益
+
 ## 18031801
 
 - package.json
