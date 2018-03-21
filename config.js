@@ -11,21 +11,21 @@ class Config {
 class DevelopmentConfig extends Config {
     constructor() {
         super()
-        this.DB_URI = process.env.DEV_MONGO_DB || 'mongodb://test:test@127.0.0.1:27017/cellhub'
+        this.DB_URI = process.env.DEV_MONGO_DB || 'mongodb://test:test@127.0.0.1:1337/cellhub'
     }
 }
 
 class TestConfig extends Config {
     constructor() {
         super()
-        this.DB_URI = process.env.TEST_MONGO_DB || 'mongodb://test:test@127.0.0.1:27017/cellhub'
+        this.DB_URI = process.env.TEST_MONGO_DB || 'mongodb://test:test@127.0.0.1:1337/cellhub'
     }
 }
 
 class ProductionConfig extends Config {
     constructor() {
         super()
-        this.DB_URI = process.env.MONGO_DB || 'mongodb://devop:6A2u3cBVksebvpeGg95fPkhMBNaTDC8k@127.0.0.1:27017/cellhub'
+        this.DB_URI = process.env.MONGO_DB || 'mongodb://devop:6A2u3cBVksebvpeGg95fPkhMBNaTDC8k@127.0.0.1:1337/cellhub'
     }
 }
 
