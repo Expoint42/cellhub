@@ -72,7 +72,7 @@ io.attach(server, {
     cookie: false
 })
 
-let port = 3000
+let port = 1338
 
 server.listen(port, '0.0.0.0', (err)=>{
     if(err){
