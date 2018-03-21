@@ -8,6 +8,8 @@ const express       = require('express')
     , morgan        = require('morgan')
 
 
+process.env.NODE_ENV = 'production'
+
 const io            = require('./io')
     , config        = require('./config')(process.env.NODE_ENV)
     , { init, authenticate }    =require('./app/acl')
