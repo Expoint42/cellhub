@@ -16,7 +16,8 @@ router.route('/count')
 // tinc host-up & host-down event handler
 // wget can only use http GET/POST method, which is not universal
 router.route('/status')
-    .post(ACL(USER_LEVEL.Admin), cellController.updateCellStatus)
+    .post(cellController.updateCellStatus)
+    // .post(ACL(USER_LEVEL.Admin), cellController.updateCellStatus)
 
 router.route('/:id')
     // Support Put method
