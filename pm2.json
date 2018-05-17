@@ -1,7 +1,7 @@
 {
     "apps" : [{
         "name"      : "cellhub",
-        "script"    : "./index.js",
+        "script"    : "./server.js",
         "watch"     : true,
         "exec_mode" : "fork"
     }]
